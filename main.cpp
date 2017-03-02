@@ -12,21 +12,17 @@
 #include <cstdint>
 #include <opencv2/opencv.hpp>
 
+#include "config.h"
+
 using namespace std;
 using namespace cv;
 
-#define SQUARE_SIZE 50    // Width/Height of each square
-#define GAP_SIZE 4        // Size of the gap between squares
-
-#define NUM_SQUARES_X 16  // Number of squares in the x direction
-#define NUM_SQUARES_Y 11  // Number of squares in the y direction
-#define BORDER_SIZE 10    // Size of border surrounding the entire texture
 
 const int PAGE_WIDTH  = (BORDER_SIZE * 2) + int(NUM_SQUARES_X * SQUARE_SIZE) + ((NUM_SQUARES_X + 1) * GAP_SIZE);
 const int PAGE_HEIGHT = (BORDER_SIZE * 2) + int(NUM_SQUARES_Y * SQUARE_SIZE) + ((NUM_SQUARES_Y + 1) * GAP_SIZE);
 
-#define NUM_INTENSITIES 5  // The total number of different intensities
 
+#define NUM_INTENSITIES 5  // The total number of different intensities
 // The 8-bit value of each intensity
 const uint8_t intensities[] = {
     8,
@@ -46,19 +42,6 @@ const float prob_intervals[] = {
 };
 
 
-// Note about noise: The noise applied is a intensity bias, where the bias is picked from a number in a range centered at 0, but not including 0.
-// Noise is applied in a sequence of rounds, where each round has double the range and half the probability of the last.
-
-#define APPLY_NOISE              // Comment this out to skip adding noise
-#define NOISE_START_RANGE  2     // Starting noise bias interval
-#define NOISE_START_PROB   2.0f  // Starting probability that a given pixel will have noise applied to it
-#define NOISE_ROUNDS       8     // Number of noise rounds to do
-
-
-// Note about the filter: The filter is a weighted mean filter. This is open to experimentation.
-
-#define APPLY_FILTER             // Comment this out to skip the filtering step
-#define FILTER_INPLACE           // Comment this out to perform an out-of-place filter
 #define FILTER_KERNEL_WIDTH 5    // Width/height of the filter
 
 float KERNEL[FILTER_KERNEL_WIDTH][FILTER_KERNEL_WIDTH] = {  // The arbitrary blur kernel
