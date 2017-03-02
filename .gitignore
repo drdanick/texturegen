@@ -1,0 +1,19 @@
+# Mac files
+.DS_Store
+
+# Vim
+*.swp
+
+# CC
+a.out
+*.o
+*.s
+*.gch
+*.exe
+*.dll
+
+# Binaries
+texturegen
+
+# Texture files
+/*.png
